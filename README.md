@@ -45,14 +45,14 @@ subordinate constructs such as the following:
 Simply run the command `make k8s-platform` against a cluster in which you wish to install the operator against.  The command
 will install the following objects into your cluster:
 
-- TanzuNamespace CustomeResourceDefinition
+- TanzuNamespace CustomResourceDefinition
 - RBAC for namespace-operator deployment
 - namespace-operator deployment
 
 
 ## Usage
 
-The following is a representating of a `TanzuNamespace` resource definition (see `config/samples/tenancy_v1alpha1_tanzunamespace.yaml`):
+The following is a representation of a `TanzuNamespace` resource definition (see `config/samples/tenancy_v1alpha1_tanzunamespace.yaml`):
 
 ```yaml
 ---
