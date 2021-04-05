@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tanzu-resource-quota
+spec:
+  hard:
+    requests.cpu: "2"  # +workload:tanzuResourceQuotaCpuRequests:default="2000m":type=string
+    requests.memory: "4Gi"  # +workload:tanzuResourceQuotaMemoryRequests:default="4Gi":type=string
+    limits.cpu: "2"  # +workload:tanzuResourceQuotaCpuLimits:default="2000m":type=string
+    limits.memory: "4Gi"  # +workload:tanzuResourceQuotaMemoryLimits:default="4Gi":type=string

@@ -1,0 +1,21 @@
+apiVersion: tenancy.platform.cnr.vmware.com/v1alpha1
+kind: TanzuNamespace
+metadata:
+  name: tanzunamespace-sample-backwards
+spec:
+  # common attributes
+  tanzuNamespaceName: "tanzu-namespace-backwards"
+
+  # limit range
+  tanzuLimitRangeDefaultCpuLimit: "100m"
+  tanzuLimitRangeDefaultMemoryLimit: "1024Mi"
+  tanzuLimitRangeDefaultCpuRequest: "50m"
+  tanzuLimitRangeDefaultMemoryRequest: "512Mi"
+  tanzuLimitRangeMaxCpuLimit: "200m"
+  tanzuLimitRangeMaxMemoryLimit: "2048Mi"
+
+  # resource quota
+  tanzuResourceQuotaCpuRequests: "8"
+  tanzuResourceQuotaMemoryRequests: "10Gi"
+  tanzuResourceQuotaCpuLimits: "16"
+  tanzuResourceQuotaMemoryLimits: "20Gi"

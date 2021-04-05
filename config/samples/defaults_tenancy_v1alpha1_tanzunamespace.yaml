@@ -1,0 +1,8 @@
+---
+apiVersion: tenancy.platform.cnr.vmware.com/v1alpha1
+kind: TanzuNamespace
+metadata:
+  name: tanzunamespace-sample-defaults
+spec:
+  # common attributes
+  name: "tanzu-namespace-defaults"

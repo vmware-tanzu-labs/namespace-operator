@@ -1,0 +1,140 @@
+# NOTE: code markers were added after workload-api was built.  these are not functional
+#       or even syntactically correct but for documentation/visualization purposes only.
+
+# service accounts
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tanzu-namespace-admin  # +workload:rbac.namespaceAdmin.user:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+---
+apiVersion: v1
+kind: ServiceAccount 
+metadata:
+  name: tanzu-developer  # +workload:rbac.developer.user:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tanzu-read-only  # +workload:rbac.readOnly.user:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+
+# roles
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tanzu-namespace-admin-role  # +workload:rbac.namespaceAdmin.role:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+rules:
+  - apiGroups:
+      - "*"
+    resources:
+      - "*"
+    verbs:
+      - "*"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tanzu-developer-role  # +workload:rbac.developer.role:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - secrets
+      - services
+    verbs:
+      - "*"
+  - apiGroups:
+      - apps
+    resources:
+      - pods
+      - deployments
+      - statefulsets
+      - daemonsets
+    verbs:
+      - "*"
+  - apiGroups:
+      - extensions
+    resources:
+      - ingress
+      - ingresses
+    verbs:
+      - "*"
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - networkpolicies
+    verbs:
+      - "*"
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - "*"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tanzu-read-only-role  # +workload:rbac.readOnly.role:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+rules:
+  - apiGroups:
+      - "*"
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+
+# rolebindings
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tanzu-namespace-admin-rolebinding  # +workload:rbac.namespaceAdmin.roleBinding:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tanzu-namespace-admin-role  # +workload:rbac.namespaceAdmin.role:type=string
+subjects:
+  - kind: ServiceAccount
+    name: tanzu-namespace-admin  # +workload:rbac.namespaceAdmin.user:type=string
+    namespace: tanzu-namespace  # +workload:name:required=true:type=string
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tanzu-developer-rolebinding  # +workload:rbac.developer.roleBinding:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tanzu-developer-role  # +workload:rbac.developer.role:type=string
+subjects:
+  - kind: ServiceAccount
+    name: tanzu-developer  # +workload:rbac.developer.user:type=string
+    namespace: tanzu-namespace  # +workload:name:required=true:type=string
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tanzu-read-only-rolebinding  # +workload:rbac.readOnly.roleBinding:type=string
+  namespace: tanzu-namespace  # +workload:name:required=true:type=string
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tanzu-read-only-role  # +workload:rbac.readOnly.role:type=string
+subjects:
+  - kind: ServiceAccount
+    name: tanzu-read-only  # +workload:rbac.readOnly.user:type=string
+    namespace: tanzu-namespace  # +workload:name:required=true:type=string

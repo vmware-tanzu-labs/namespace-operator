@@ -1,0 +1,7 @@
+domain: platform.cnr.vmware.com
+repo: github.com/vmware-tanzu-labs/namespace-operator
+resources:
+- group: tenancy
+  kind: TanzuNamespace
+  version: v1alpha1
+version: "2"

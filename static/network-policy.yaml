@@ -1,0 +1,24 @@
+# NOTE: code markers were added after workload-api was built.  these are not functional
+#       or even syntactically correct but for documentation/visualization purposes only.
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tanzu-network-policy
+spec:
+  podSelector:
+    matchLabels: {}  # +workload:networkPolicy.targetPodLabels:default=map[string]string:type=map
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels: {}  # +workload:networkPolicy.ingressNamespaceLabels:default=map[string]string:type=map
+    - podSelector:
+        matchLabels: {}  # +workload:networkPolicy.ingressPodLabels:default=map[string]string:type=map
+    ports: []  # +workload:networkPolicy.ingressTcpPorts:default=[]string:type=array  # +workload:networkPolicy.ingressUdpPorts:default=[]string:type=array
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels: {}  # +workload:networkPolicy.egressNamespaceLabels:default=map[string]string:type=map
+    - podSelector:
+        matchLabels: {}  # +workload:networkPolicy.egressPodLabels:default=map[string]string:type=map
+    ports: []  # +workload:networkPolicy.egressTcpPorts:default=[]string:type=array  # +workload:networkPolicy.egressUdpPorts:default=[]string:type=array

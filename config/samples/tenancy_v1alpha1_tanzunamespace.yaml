@@ -1,0 +1,73 @@
+apiVersion: tenancy.platform.cnr.vmware.com/v1alpha1
+kind: TanzuNamespace
+metadata:
+  name: tanzunamespace-sample
+spec:
+  # common attributes
+  name: "tanzu-namespace"
+
+  # limit range
+  limitRange:
+    defaultCPULimit: "200m"
+    defaultMemoryLimit: "128Mi"
+    defaultCPURequest: "100m"
+    defaultMemoryRequest: "64Mi"
+    maxCPULimit: "1000m"
+    maxMemoryLimit: "512Mi"
+
+  # resource quota
+  resourceQuota:
+    requestsCPU: "8"
+    requestsMemory: "10Gi"
+    limitsCPU: "16"
+    limitsMemory: "20Gi"
+
+  # network policies
+  networkPolicies:
+    - targetPodLabels:
+        app: nginx
+      egressUDPPorts:
+        - 53
+      egressNamespaceLabels:
+        name: kube-system
+    - targetPodLabels:
+        app: nginx
+      ingressTCPPorts:
+        - 80
+        - 443
+      egressTCPPorts:
+        - 80
+        - 443
+    - targetPodLabels:
+        run: nginx
+      ingressTCPPorts:
+        - 80
+        - 443
+      ingressNamespaceLabels:
+        name: tanzu-namespace
+      ingressPodLabels:
+        app: nginx
+      egressTCPPorts:
+        - 80
+        - 443
+      egressUDPPorts:
+        - 53
+
+  # rbac
+  # NOTE: untested and considered "unimplemented" for now
+  # rbac:
+  #   - type: 'namespace-admin'
+  #     create: true
+  #     user: tanzu-namespace-admin
+  #     role: tanzu-namespace-admin-role
+  #     roleBinding: tanzu-namespace-admin-rolebinding
+  #   - type: 'developer'
+  #     create: true
+  #     user: tanzu-developer
+  #     role: tanzu-developer-role
+  #     roleBinding: tanzu-devloper-rolebinding
+  #   - type: 'read-only'
+  #     create: true
+  #     user: tanzu-read-only
+  #     role: tanzu-read-only-role
+  #     roleBinding: tanzu-read-only-rolebinding
