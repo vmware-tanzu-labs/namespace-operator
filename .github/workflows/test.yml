@@ -1,16 +1,11 @@
 ---
-name: Golang
+name: Test
 on:
-  push:
-    tags:
-      - v*
-    branches:
-      - master
-      - main
-  pull_request:
+  - push
+  - pull_request
 jobs:
-  lint:
-    name: lint
+  Go Lint:
+    name: Go Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,8 +13,17 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           version: v1.29
-  test:
-    name: test
+
+  Docker Lint:
+    name: Docker Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: hadolint
+        uses: brpaz/hadolint-action@v1.2.1
+
+  Go Test:
+    name: Go Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,4 +33,5 @@ jobs:
       - name: Install KubeBuilder
         uses: RyanSiu1995/kubebuilder-action@v1.1
       - name: go test
+        run: make test
         run: make test
