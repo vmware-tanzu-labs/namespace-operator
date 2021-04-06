@@ -4,7 +4,7 @@ on:
   - push
   - pull_request
 jobs:
-  go lint:
+  go-lint:
     name: Go Lint
     runs-on: ubuntu-latest
     steps:
@@ -14,7 +14,7 @@ jobs:
         with:
           version: v1.29
 
-  docker lint:
+  docker-lint:
     name: Docker Lint
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: hadolint
         uses: brpaz/hadolint-action@v1.2.1
 
-  go test:
+  go-test:
     name: Go Test
     runs-on: ubuntu-latest
     steps:
