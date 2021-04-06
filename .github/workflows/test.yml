@@ -34,4 +34,3 @@ jobs:
         uses: RyanSiu1995/kubebuilder-action@v1.1
       - name: go test
         run: make test
-        run: make test
