@@ -10,8 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Publish to Harbor
-        # You may pin to the exact commit or the version.
-        # uses: aevea/action-kaniko@5e25ae9c63e13a7e79955b4ff2d600732449fdf6
         uses: aevea/action-kaniko@v0.6.0
         with:
           # Docker registry where the image will be pushed
