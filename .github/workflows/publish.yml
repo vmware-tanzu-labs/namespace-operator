@@ -13,13 +13,12 @@ jobs:
         uses: aevea/action-kaniko@v0.6.0
         with:
           # Docker registry where the image will be pushed
-          registry: ${{ env.DOCKER_REGISTRY }}
+          registry: ${{ secrets.DOCKER_REGISTRY }}
           # Username used for authentication to the Docker registry
-          username: ${{ .secrets.DOCKER_USERNAME }}
+          username: ${{ secrets.DOCKER_USERNAME }}
           # Password used for authentication to the Docker registry
-          password: ${{ .secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
           # Image name
           image: namespace-operator
-          strip_tag_prefix: v
           # Tags the built image with additional latest tag
           tag_with_latest: true
