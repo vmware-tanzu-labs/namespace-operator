@@ -19,6 +19,6 @@ jobs:
           # Password used for authentication to the Docker registry
           password: ${{ secrets.DOCKER_PASSWORD }}
           # Image name
-          image: namespace-operator
+          image: projects.registry.vmware.com/namespace-operator/namespace-operator
           # Tags the built image with additional latest tag
           tag_with_latest: true
