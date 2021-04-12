@@ -35,7 +35,7 @@ jobs:
           context: .
           tags: |
             ${{ steps.meta.outputs.tags }}
-            latest
+            ${{ secrets.DOCKER_REGISTRY }}/namespace_operator/namespace-operator:latest
 
       # - name: Publish Tag to Harbor
       #   uses: docker/build-push-action@v2
