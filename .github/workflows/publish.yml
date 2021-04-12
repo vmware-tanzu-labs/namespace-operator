@@ -6,6 +6,7 @@ on:
       - "v*"
 jobs:
   publish-to-harbor:
+    name: Publish To Harbor
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,3 +23,5 @@ jobs:
           image: ${{ secrets.DOCKER_REGISTRY}}/namespace_operator/namespace-operator
           # Tags the built image with additional latest tag
           tag_with_latest: true
+          env:
+            DOCKER_CONFIG: /root/.docker/
