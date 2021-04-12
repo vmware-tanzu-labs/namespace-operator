@@ -8,19 +8,22 @@ jobs:
   publish-to-harbor:
     name: Publish To Harbor
     runs-on: ubuntu-latest
+    env:
+      DOCKER_CONFIG: "${HOME}/.docker/"
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the Code
+        uses: actions/checkout@v2
+      - name: Create Authentication
+        run: echo "{\"auths\":{\"${{ secrets.DOCKER_REGISTRY }}\":{\"username\":\"${{ secrets.DOCKER_USERNAME }}\",\"password\":\"${{ secrets.DOCKER_PASSWORD }}\"}}}" > ${DOCKER_CONFIG}config.json
       - name: Publish to Harbor
-        env:
-          DOCKER_CONFIG: "${HOME}/.docker/"
         uses: aevea/action-kaniko@v0.6.1
         with:
-          # Docker registry where the image will be pushed
-          registry: ${{ secrets.DOCKER_REGISTRY }}
-          # Username used for authentication to the Docker registry
-          username: ${{ secrets.DOCKER_USERNAME }}
-          # Password used for authentication to the Docker registry
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          # # Docker registry where the image will be pushed
+          # registry: ${{ secrets.DOCKER_REGISTRY }}
+          # # Username used for authentication to the Docker registry
+          # username: ${{ secrets.DOCKER_USERNAME }}
+          # # Password used for authentication to the Docker registry
+          # password: ${{ secrets.DOCKER_PASSWORD }}
           # Image name
           image: ${{ secrets.DOCKER_REGISTRY}}/namespace_operator/namespace-operator
           # Tags the built image with additional latest tag
