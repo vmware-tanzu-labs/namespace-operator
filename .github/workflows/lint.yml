@@ -32,6 +32,7 @@ jobs:
 
   check-license-lines:
     runs-on: ubuntu-latest
+    name: Check License Files
     steps:
     - uses: actions/checkout@master
     - name: Check License Lines

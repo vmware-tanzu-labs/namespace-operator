@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Publish to Harbor
+        env:
+          DOCKER_CONFIG: /root/.docker/
         uses: aevea/action-kaniko@v0.6.1
         with:
           # Docker registry where the image will be pushed
@@ -23,5 +25,3 @@ jobs:
           image: ${{ secrets.DOCKER_REGISTRY}}/namespace_operator/namespace-operator
           # Tags the built image with additional latest tag
           tag_with_latest: true
-          env:
-            DOCKER_CONFIG: /root/.docker/
