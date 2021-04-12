@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Publish to Harbor
         env:
-          DOCKER_CONFIG: /root/.docker/
+          DOCKER_CONFIG: "${HOME}/.docker/"
         uses: aevea/action-kaniko@v0.6.1
         with:
           # Docker registry where the image will be pushed
