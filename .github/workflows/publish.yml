@@ -5,19 +5,16 @@ on:
     tags:
       - "v*"
 jobs:
-  publish-to-harbor:
-    name: Publish To GitLab Registry
+  publish-to-registry:
+    name: Publish to Registry
     runs-on: ubuntu-latest
-    #runs-on: self-hosted
-    env:
-      DOCKER_CONFIG: "${HOME}/.docker/"
     steps:
       - name: Checkout the Code
         uses: actions/checkout@v2
-      # - name: Create Authentication to Registry
-      #   run: mkdir -p ${DOCKER_CONFIG} && echo "{\"auths\":{\"${{ secrets.DOCKER_REGISTRY }}\":{\"username\":\"${{ secrets.DOCKER_USERNAME }}\",\"password\":\"${{ secrets.DOCKER_PASSWORD }}\"}}}" > ${DOCKER_CONFIG}config.json
+
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
+
       - name: Generate Tag List
         id: meta
         uses: crazy-max/ghaction-docker-meta@v2
@@ -26,12 +23,14 @@ jobs:
             ${{ secrets.DOCKER_REGISTRY }}/vmware-tanzu-labs/namespace-operator/namespace-operator
           tags: |
             type=ref,event=tag
+
       - name: Login to Registry
         uses: docker/login-action@v1
         with:
           registry: ${{ secrets.DOCKER_REGISTRY }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Publish to Registry
         uses: docker/build-push-action@v2
         with:
@@ -39,29 +38,3 @@ jobs:
           context: .
           tags: |
             ${{ steps.meta.outputs.tags }}
-
-      # - name: Publish Tag to Harbor
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     registry: ${{ secrets.DOCKER_REGISTRY }}
-      #     repository: namespace_operator/namespace-operator
-      #     tag_with_ref: true
-      # - name: Publish Latest to Harbor
-      #   uses: docker/build-push-action@v1
-      #   with:
-      #     registry: ${{ secrets.DOCKER_REGISTRY }}
-      #     repository: namespace_operator/namespace-operator
-      #     tags: latest
-      # - name: Publish Image to Registry
-      #   uses: aevea/action-kaniko@v0.6.1
-      #   with:
-      #     # Docker registry where the image will be pushed
-      #     registry: ${{ secrets.DOCKER_REGISTRY }}
-      #     # Username used for authentication to the Docker registry
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     # Password used for authentication to the Docker registry
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
-      #     # Image name
-      #     image: ${{ secrets.DOCKER_REGISTRY}}/vmware-tanzu-labs/namespace-operator/namespace-operator
-      #     # Tags the built image with additional latest tag
-      #     tag_with_latest: true
