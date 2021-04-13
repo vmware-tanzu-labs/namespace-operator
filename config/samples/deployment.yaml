@@ -20,7 +20,7 @@ spec:
       serviceAccountName: namespace-operator-admin
       containers:
         - name: namespace-operator
-          image: projects.registry.vmware.com/cnr_project_ivy/namespace-operator:v1.2.7
+          image: registry.gitlab.com/vmware-tanzu-labs/namespace-operator/namespace-operator:latest
           imagePullPolicy: Always
           resources:
             requests:

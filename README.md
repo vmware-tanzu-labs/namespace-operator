@@ -4,8 +4,9 @@
 
 The namespace-operator project is a project designed for implementing best practices for each namespace created
 within a Kubernetes environment.  More specifically, it was implemented to take into account best practices
-from several years of production-level, field experience from the engineers currently working at VMware.  The model
-is designed to implement a level of tenancy within each Kubernetes cluster which satisfies many production
+from several years of production-level, field experience from the engineers currently working at VMware.  While it is
+noted that there are several challenges with multi-tenant clusters, for those who desire multi-tenancy within cluster can
+use the namespace-operator model to implement a level of tenancy within each Kubernetes cluster which satisfies many production
 requirements.  Best practices for namespace-operator are derived from guides in the Tanzu Developer Center
 (Workload Tenancy Guide) as documented at https://tanzu.vmware.com/developer/guides/kubernetes/workload-tenancy/.
 
