@@ -14,8 +14,8 @@ jobs:
     steps:
       - name: Checkout the Code
         uses: actions/checkout@v2
-      # - name: Create Authentication
-      #   run: mkdir -p ${DOCKER_CONFIG} && echo "{\"auths\":{\"${{ secrets.DOCKER_REGISTRY }}\":{\"username\":\"${{ secrets.DOCKER_USERNAME }}\",\"password\":\"${{ secrets.DOCKER_PASSWORD }}\"}}}" > ${DOCKER_CONFIG}config.json
+      - name: Create Authentication
+        run: mkdir -p ${DOCKER_CONFIG} && echo "{\"auths\":{\"${{ secrets.DOCKER_REGISTRY }}\":{\"username\":\"${{ secrets.DOCKER_USERNAME }}\",\"password\":\"${{ secrets.DOCKER_PASSWORD }}\"}}}" > ${DOCKER_CONFIG}config.json
       # - name: Setup Docker Buildx
       #   uses: docker/setup-buildx-action@v1
       # - name: Generate Tag List
