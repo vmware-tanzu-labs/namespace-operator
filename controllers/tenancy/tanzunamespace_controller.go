@@ -17,7 +17,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	tenancyv1alpha1 "github.com/vmware-tanzu-labs/namespace-operator/apis/v1alpha1"
+	tenancyv1alpha1 "github.com/vmware-tanzu-labs/namespace-operator/apis/tenancy/v1alpha1"
 	"github.com/vmware-tanzu-labs/namespace-operator/resources"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

@@ -15,8 +15,8 @@ import (
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/vmware-tanzu-labs/namespace-operator/apis/v1alpha1"
-	"github.com/vmware-tanzu-labs/namespace-operator/resources"
+	tenancyv1alpha1 "github.com/vmware-tanzu-labs/namespace-operator/apis/tenancy/v1alpha1"
+	tanzunamespace "github.com/vmware-tanzu-labs/namespace-operator/apis/tenancy/v1alpha1/tanzunamespace"
 )
 
 func NewGenerateCommand() *cobra.Command {
@@ -60,7 +60,7 @@ func NewGenerateCommand() *cobra.Command {
 
 func runGenerate(in io.Reader, out io.Writer) error {
 
-	var cr v1alpha1.TanzuNamespace
+	var cr tenancyv1alpha1.TanzuNamespace
 	if err := Decode(in, &cr); err != nil {
 		return fmt.Errorf("decoding: %w", err)
 	}
@@ -79,10 +79,10 @@ func runGenerate(in io.Reader, out io.Writer) error {
 	return nil
 }
 
-func generateChildren(cr *v1alpha1.TanzuNamespace) ([]metav1.Object, error) {
+func generateChildren(cr *tenancyv1alpha1.TanzuNamespace) ([]metav1.Object, error) {
 
 	var children []metav1.Object
-	for _, f := range resources.CreateFuncs {
+	for _, f := range tanzunamespace.CreateFuncs {
 
 		rsrc, err := f(cr)
 		if err != nil {

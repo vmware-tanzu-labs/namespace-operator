@@ -16,8 +16,8 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	tenancyv1alpha1 "github.com/vmware-tanzu-labs/namespace-operator/apis/v1alpha1"
-	"github.com/vmware-tanzu-labs/namespace-operator/controllers"
+	tenancyv1alpha1 "github.com/vmware-tanzu-labs/namespace-operator/apis/tenancy/v1alpha1"
+	tenancycontrollers "github.com/vmware-tanzu-labs/namespace-operator/controllers/tenancy"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -56,7 +56,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.TanzuNamespaceReconciler{
+	if err = (&tenancycontrollers.TanzuNamespaceReconciler{
 		Client: mgr.GetClient(),
 		Log:    ctrl.Log.WithName("controllers").WithName("TanzuNamespace"),
 		Scheme: mgr.GetScheme(),

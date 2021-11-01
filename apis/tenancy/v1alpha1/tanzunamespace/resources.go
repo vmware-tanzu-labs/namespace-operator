@@ -13,7 +13,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	tenancyv1alpha1 "github.com/vmware-tanzu-labs/namespace-operator/apis/v1alpha1"
+	tenancyv1alpha1 "github.com/vmware-tanzu-labs/namespace-operator/apis/tenancy/v1alpha1"
 )
 
 // CreateArrayFuncs is a variable containing functions which return an array of resources
