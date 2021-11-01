@@ -15,7 +15,7 @@ import (
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/vmware-tanzu-labs/namespace-operator/api/v1alpha1"
+	"github.com/vmware-tanzu-labs/namespace-operator/apis/v1alpha1"
 	"github.com/vmware-tanzu-labs/namespace-operator/resources"
 )
 
