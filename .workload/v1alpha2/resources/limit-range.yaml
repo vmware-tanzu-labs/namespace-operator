@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: "tanzu-limit-range"
+  namespace: "tanzu-namespace" #+operator-builder:field:name=namespace,type=string
+spec:
+  limits:
+    - default:
+        #+operator-builder:field:name=resources.limits.cpu,default="250m",type=string,description=`
+        #Default CPU limits to be applied to applications which get deployed into this namespace,
+        #but are missing a resources declaration.`
+        cpu: "125m"
+        #+operator-builder:field:name=resources.limits.memory,default="64Mi",type=string,description=`
+        #Default Memory limits to be applied to applications which get deployed into this namespace,
+        #but are missing a resources declaration.`
+        memory: "64Mi"
+      defaultRequest:
+        #+operator-builder:field:name=resources.requests.cpu,default="250m",type=string,description=`
+        #Default CPU requests to be applied to applications which get deployed into this namespace,
+        #but are missing a resources declaration.`
+        cpu: "250m"
+        #+operator-builder:field:name=resources.requests.memory,default="64Mi",type=string,description=`
+        #Default Memory requests to be applied to applications which get deployed into this namespace,
+        #but are missing a resources declaration.`
+        memory: "64Mi"
+      max:
+        #+operator-builder:field:name=resources.max.cpu,default="500m",type=string,description=`
+        #Default maximum CPU limits for an individual application which get deployed into this namespace.`
+        cpu: "500m"
+        #+operator-builder:field:name=resources.max.memory,default="500m",type=string,description=`
+        #Default maximum Memory limits for an individual application which get deployed into this namespace.`
+        memory: "256Mi"
+      type: Container

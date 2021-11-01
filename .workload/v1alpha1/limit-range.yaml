@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: tanzu-limit-range
+spec:
+  limits:
+    - default:
+        cpu: "250m"  # +workload:tanzuLimitRangeDefaultCpuLimit:default="125m":type=string
+        memory: "64Mi"  # +workload:tanzuLimitRangeDefaultMemoryLimit:default="64Mi":type=string
+      defaultRequest:
+        cpu: "250m"  # +workload:tanzuLimitRangeDefaultCpuRequest:default="125m":type=string
+        memory: "64Mi"  # +workload:tanzuLimitRangeDefaultMemoryRequest:default="64Mi":type=string
+      max:
+        cpu: "1000m"  # +workload:tanzuLimitRangeMaxCpuLimit:default="1000m":type=string
+        memory: "512Mi"  # +workload:tanzuLimitRangeMaxMemoryLimit:default="2Gi":type=string
+      type: Container

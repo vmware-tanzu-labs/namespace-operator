@@ -1,0 +1,53 @@
+# NOTE: code markers were added before functionality for complex data types existed.  these are not functional
+#       or even syntactically correct but for documentation/visualization purposes only.
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: "tanzu-network-policy"
+  namespace: "tanzu-namespace" #+operator-builder:field:name=namespace,type=string
+spec:
+  podSelector:
+    #+operator-builder:field:name=networkPolicy.targetPodLabels,type=string,default="",description=`
+    #Labels on pods within this namespace that the network policy applies to.`
+    matchLabels: ""  # this is actually a map[string]string but used to build the project for now
+  ingress:
+    - from:
+        - namespaceSelector:
+
+            #+operator-builder:field:name=networkPolicy.ingress.namespaceLabels,type=string,default="",description=`
+            #Labels on namespaces that the ingress network policy applies to for pods which match
+            #field networkPolicy.targetPodLabels.`
+            matchLabels: ""  # this is actually a map[string]string but used to build the project for now
+
+        - podSelector:
+
+            #+operator-builder:field:name=networkPolicy.ingress.podLabels,type=string,default="",description=`
+            #Labels on pods that the ingress network policy applies to for pods which match field
+            #networkPolicy.targetPodLabels.`
+            matchLabels: ""  # this is actually a map[string]string but used to build the project for now
+
+    #+operator-builder:field:name=networkPolicy.ingress.ports,type=[]string,default={},description=`
+    #Allowed ingress ports on matches of namespaces from field networkPolicy.ingress.namespaceLabels and
+    #for pods from field networkPolicy.ingress.podLabels for pods which match field networkPolicy.targetPodLabels.`
+    ports: [] # this is actually an []map[string]string but used to build the project for now
+  egress:
+    - to:
+        - namespaceSelector:
+
+            #+operator-builder:field:name=networkPolicy.egress.namespaceLabels,type=string,default="",description=`
+            #Labels on namespaces that the egress network policy applies to for pods which match
+            #field networkPolicy.targetPodLabels.`
+            matchLabels: ""  # this is actually a map[string]string but used to build the project for now
+
+        - podSelector:
+
+            #+operator-builder:field:name=networkPolicy.egress.podLabels,type=string,default="",description=`
+            #Labels on pods that the egress network policy applies to for pods which match field
+            #networkPolicy.targetPodLabels.`
+            matchLabels: ""  # this is actually a map[string]string but used to build the project for now
+
+    #+operator-builder:field:name=networkPolicy.egress.ports,type=[]string,default={},description=`
+    #Allowed egress ports on matches of namespaces from field networkPolicy.egress.namespaceLabels and
+    #for pods from field networkPolicy.egress.podLabels.`
+    ports: []  # this is actually an []map[string]string but used to build the project for now
