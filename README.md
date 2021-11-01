@@ -27,7 +27,9 @@ subordinate constructs such as the following:
   quotas may be adjusted but are defaulted to a low value by default to encourage administrators to specify the values that
   they need.
 - `NetworkPolicy` - for each `TanzuNamespace`, a network policy is created to provide microsegmentation for the namespace/tenant.
-  See https://kubernetes.io/docs/concepts/services-networking/network-policies/.  **NOTE:** network policy implementation is
+  See https://kubernetes.io/docs/concepts/services-networking/network-policies/.  In the case of a `TanzuNamespace`, we implement
+  a default `deny-all` policy and only allow traffic out for DNS queries.  This provides a namespace lockdown by default and
+  forces users to define which ports via their own `NetworkPolicy` truly should be allowed.  **NOTE:** network policy implementation is
   highly dependent on the Kubernetes CNI selection.  Please ensure your CNI implements the NetworkPolicy spec to use.
 - **RBAC (Not Yet Implemented)** - for each `TanzuNamespace`, the namespace-operator will lay down some role-based access
   control to implement the workload administrator, developer, and view roles along with associated service accounts and role bindings.

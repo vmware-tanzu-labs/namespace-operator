@@ -90,7 +90,7 @@ type TanzuNamespaceSpec struct {
 	// +kubebuilder:validation:Optional
 	ResourceQuota ResourceQuota `json:"resourceQuota"`
 
-	// +kubebuilder:default=map[string]string
+	// +kubebuilder:default={}
 	// +kubebuilder:validation:Optional
 	NetworkPolicies []NetworkPolicy `json:"networkPolicies"`
 

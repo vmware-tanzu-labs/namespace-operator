@@ -8,4 +8,14 @@ plugins:
     workloadConfigPath: .workload/v1alpha2/workload.yaml
 projectName: tenancy
 repo: github.com/vmware-tanzu-labs/namespace-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: platform.cnr.vmware.com
+  group: tenancy
+  kind: TanzuNamespace
+  path: github.com/vmware-tanzu-labs/namespace-operator/apis/tenancy/v1alpha2
+  version: v1alpha2
 version: "3"

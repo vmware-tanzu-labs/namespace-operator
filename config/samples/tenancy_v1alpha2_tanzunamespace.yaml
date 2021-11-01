@@ -1,0 +1,23 @@
+apiVersion: tenancy.platform.cnr.vmware.com/v1alpha2
+kind: TanzuNamespace
+metadata:
+  name: tanzunamespace-sample
+spec:
+  namespace: "tanzu-namespace"
+  resources:
+    limits:
+      cpu: "250m"
+      memory: "64Mi"
+    requests:
+      cpu: "250m"
+      memory: "64Mi"
+    max:
+      cpu: "500m"
+      memory: "256Mi"
+    quota:
+      requests:
+        cpu: "2000m"
+        memory: "4Gi"
+      limits:
+        cpu: "2000m"
+        memory: "4Gi"

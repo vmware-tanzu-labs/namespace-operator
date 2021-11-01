@@ -28,7 +28,7 @@ spec:
         #+operator-builder:field:name=resources.max.cpu,default="500m",type=string,description=`
         #Default maximum CPU limits for an individual application which get deployed into this namespace.`
         cpu: "500m"
-        #+operator-builder:field:name=resources.max.memory,default="500m",type=string,description=`
+        #+operator-builder:field:name=resources.max.memory,default="256Mi",type=string,description=`
         #Default maximum Memory limits for an individual application which get deployed into this namespace.`
         memory: "256Mi"
       type: Container
