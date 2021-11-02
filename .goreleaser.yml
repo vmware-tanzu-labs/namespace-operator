@@ -14,9 +14,17 @@ builds:
     binary: tanzu-ns-ctl
     ldflags:
       - -s -w -X github.com/vmware-tanzu-labs/namespace-operator/cmd/tanzu-ns-ctl/commands.version={{ .Version }} -extldflags '-static'
+  - id: manager
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    main: ./main.go
+    binary: manager
 
 archives:
-  - replacements:
+  - id: tanzu-ns-ctl
+    replacements:
       darwin: Darwin
       linux: Linux
       windows: Windows
@@ -30,6 +38,8 @@ archives:
       - README.md
       - LICENSE
 checksum:
+  ids:
+    - tanzu-ns-ctl
   name_template: 'checksums.txt'
 snapshot:
   name_template: "{{ .Version }}-snapshot-{{ .ShortCommit }}"
@@ -44,11 +54,13 @@ changelog:
       - '^chore(\(.*\))?:'
       - '^build(\(.*\))?:'
 dockers:
-  - image_templates:
+  - ids:
+      - manager
+    image_templates:
       - 'ghcr.io/vmware-tanzu-labs/namespace-operator:v{{ .Version }}'
       - 'ghcr.io/vmware-tanzu-labs/namespace-operator:latest'
     dockerfile: Dockerfile
-    use_buildx: true
+    use: 'buildx'
     build_flag_templates:
       - "--label=org.opencontainers.image.created={{ .Date }}"
       - "--label=org.opencontainers.image.name={{ .ProjectName }}"
@@ -58,8 +70,15 @@ dockers:
       - "--label=org.opencontainers.image.licenses=MIT"
       - "--label=VERSION={{ .Version }}"
       - "--platform=linux/amd64"
+    extra_files:
+      - "main.go"
+      - "apis/*"
+      - "controllers/*"
+      - "internal/*"
 brews:
-  - name: tanzu-ns-ctl
+  - ids:
+      - tanzu-ns-ctl
+    name: tanzu-ns-ctl
     tap:
       owner: vmware-tanzu-labs
       name: homebrew-tap
@@ -98,8 +117,6 @@ brews:
     # Packages your package depends on.
     dependencies:
       - name: kubectl
-      - name: golang
-      - name: make
 
     install: |-
       bin.install "tanzu-ns-ctl"
@@ -107,4 +124,4 @@ brews:
     # So you can `brew test` your formula.
     # Default is empty.
     test: |
-      system "#{bin}/tanzu-ns-ctl -h"
+      system "#{bin}/tanzu-ns-ctl version"
