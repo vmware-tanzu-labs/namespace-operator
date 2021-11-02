@@ -16,9 +16,9 @@ type TanzuNsCtlCommand struct {
 func NewTanzuNsCtlCommand() *TanzuNsCtlCommand {
 	c := &TanzuNsCtlCommand{
 		Command: &cobra.Command{
-			Use:   "TanzuNsCtl",
-			Short: "Manage webstore stuff like a boss",
-			Long:  "Manage webstore stuff like a boss",
+			Use:   "tanzu-ns-ctl",
+			Short: "Manage Tanzu Namespaces",
+			Long:  "Manage Tanzu Namespaces",
 		},
 	}
 
