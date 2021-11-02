@@ -37,5 +37,6 @@ func (c *TanzuNsCtlCommand) Run() {
 func (c *TanzuNsCtlCommand) addSubCommands() {
 	c.newInitCommand()
 	c.newGenerateCommand()
+	c.newVersionCommand()
 	//+kubebuilder:scaffold:operator-builder:subcommands
 }
