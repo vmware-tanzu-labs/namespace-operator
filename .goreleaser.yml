@@ -74,9 +74,9 @@ dockers:
       - "--platform=linux/amd64"
     extra_files:
       - "main.go"
-      - "apis/*"
-      - "controllers/*"
-      - "internal/*"
+      - "apis/"
+      - "controllers/"
+      - "internal/"
 brews:
   - ids:
       - tanzu-ns-ctl
