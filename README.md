@@ -1,5 +1,8 @@
 # namespace-operator
 
+This project was built using [operator-builder](https://github.com/vmware-tanzu-labs/operator-builder).  Please visit
+the link for more information on how to build your operators for management of Kubernetes workloads.
+
 ## Project Motivation
 
 The namespace-operator project is a project designed for implementing best practices for each namespace created
@@ -20,8 +23,7 @@ subordinate constructs such as the following:
   is in place to represent a tenant for a workload.
 - `LimitRange` - for each `TanzuNamespace`, a limit range is created to give a sane resource range for workloads that reside
   within the namespace (tenant).  See https://kubernetes.io/docs/concepts/policy/limit-range/.  Limit ranges may be adjusted
-  but are defaulted to a low value by default to encourage administrators to specify the values that
-  they need.
+  but are defaulted to a low value by default to encourage administrators to specify the values that they need.
 - `ResourceQuota` - for each `TanzuNamespace`, a resource quota is created to provide a sane limitation for resources to
   be consumed within that namespace.  See https://kubernetes.io/docs/concepts/policy/resource-quotas/.  Resource
   quotas may be adjusted but are defaulted to a low value by default to encourage administrators to specify the values that
@@ -45,74 +47,62 @@ subordinate constructs such as the following:
 
 ## Installation
 
-Simply run the command `make k8s-platform` against a cluster in which you wish to install the operator against.  The command
-will install the following objects into your cluster:
+Run the following commands to install the namespace-operator:
+
+1. Install the CRDs:
+
+```bash
+make install
+```
+
+2. Deploy the Docker Image:
+
+```bash
+IMG=ghcr.io/vmware-tanzu-labs/namespace-operator:v0.2.0 make deploy
+```
+
+3. (Optional) Install the Sample CRD as a test:
+
+```bash
+kubectl apply -f config/samples/tenancy_v1alpha2_tanzunamespace.yaml
+```
+
+The above commands will install the following objects into your cluster:
 
 - TanzuNamespace CustomResourceDefinition
 - RBAC for namespace-operator deployment
 - namespace-operator deployment
-
+- (Optional) Sample Namespace, LimitRange, ResourceQuota, NetworkPolicy
 
 ## Usage
 
-The following is a representation of a `TanzuNamespace` resource definition (see `config/samples/tenancy_v1alpha1_tanzunamespace.yaml`):
+The following is a representation of a `TanzuNamespace` resource definition (see `config/samples/tenancy_v1alpha2_tanzunamespace.yaml`):
 
 ```yaml
 ---
-apiVersion: tenancy.platform.cnr.vmware.com/v1alpha1
+apiVersion: tenancy.platform.cnr.vmware.com/v1alpha2
 kind: TanzuNamespace
 metadata:
   name: tanzunamespace-sample
 spec:
-  # common attributes
-  name: "tanzu-namespace"
-
-  # limit range
-  limitRange:
-    defaultCPULimit: "200m"
-    defaultMemoryLimit: "128Mi"
-    defaultCPURequest: "100m"
-    defaultMemoryRequest: "64Mi"
-    maxCPULimit: "1000m"
-    maxMemoryLimit: "512Mi"
-
-  # resource quota
-  resourceQuota:
-    requestsCPU: "8"
-    requestsMemory: "10Gi"
-    limitsCPU: "16"
-    limitsMemory: "20Gi"
-
-  # network policies
-  networkPolicies:
-    - targetPodLabels:
-        app: nginx
-      egressUDPPorts:
-        - 53
-      egressNamespaceLabels:
-        name: kube-system
-    - targetPodLabels:
-        app: nginx
-      ingressTCPPorts:
-        - 80
-        - 443
-      egressTCPPorts:
-        - 80
-        - 443
-    - targetPodLabels:
-        run: nginx
-      ingressTCPPorts:
-        - 80
-        - 443
-      ingressNamespaceLabels:
-        name: tanzu-namespace
-      ingressPodLabels:
-        app: nginx
-      egressTCPPorts:
-        - 80
-        - 443
-      egressUDPPorts:
-        - 53
+  namespace: "tanzu-namespace"
+  resources:
+    limits:
+      cpu: "250m"
+      memory: "256Mi"
+    requests:
+      cpu: "250m"
+      memory: "256Mi"
+    max:
+      cpu: "500m"
+      memory: "256Mi"
+    quota:
+      requests:
+        cpu: "2000m"
+        memory: "4Gi"
+      limits:
+        cpu: "2000m"
+        memory: "4Gi"
 ```
 
 The above can be applied via standard `kubectl apply -f <tanzu_namespace_file>`, substituting the appropriate values as necessary.

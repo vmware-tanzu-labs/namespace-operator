@@ -96,21 +96,3 @@ endif
 # Build the companion CLI
 build-cli:
 	go build -o bin/tanzu-ns-ctl cmd/tanzu-ns-ctl/main.go
-
-k8s-platform:
-	kubectl apply -f config/crd/bases/tenancy.platform.cnr.vmware.com_tanzunamespaces.yaml -f config/rbac/clusterrole.yaml -f config/samples/deployment.yaml
-
-k8s-resources-backwards:
-	kubectl apply -f config/samples/backwards_tenancy_v1alpha_tanzunamespace.yaml
-
-k8s-resources-defaults:
-	kubectl apply -f config/samples/defaults_tenancy_v1alpha1_tanzunamespace.yaml
-
-k8s-resources-sample:
-	kubectl apply -f config/samples/tenancy_v1alpha1_tanzunamespace.yaml
-
-k8s-platform-clean:
-	kubectl delete -f config/samples/deployment.yaml -f config/crd/bases/tenancy.platform.cnr.vmware.com_tanzunamespaces.yaml -f config/rbac/clusterrole.yaml
-
-k8s-resources-clean:
-	kubectl delete -f config/samples/backwards_tenancy_v1alpha_tanzunamespace.yaml -f config/samples/tenancy_v1alpha1_tanzunamespace.yaml

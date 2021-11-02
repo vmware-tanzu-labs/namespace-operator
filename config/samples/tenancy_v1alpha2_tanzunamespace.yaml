@@ -6,11 +6,11 @@ spec:
   namespace: "tanzu-namespace"
   resources:
     limits:
-      cpu: "250m"
-      memory: "64Mi"
+      cpu: "100m"
+      memory: "256Mi"
     requests:
-      cpu: "250m"
-      memory: "64Mi"
+      cpu: "100m"
+      memory: "256Mi"
     max:
       cpu: "500m"
       memory: "256Mi"
