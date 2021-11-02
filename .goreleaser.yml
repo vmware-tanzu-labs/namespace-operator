@@ -13,7 +13,7 @@ builds:
     main: ./cmd/tanzu-ns-ctl
     binary: tanzu-ns-ctl
     ldflags:
-      - -s -w -X github.com/vmware-tanzu-labs/namespace-operator/cmd/tanzu-ns-ctl/commands.version={{ .Env.TAG_VERSION }} -extldflags '-static'
+      - -s -w -X github.com/vmware-tanzu-labs/namespace-operator/cmd/tanzu-ns-ctl/commands.version={{ .Version }} -extldflags '-static'
 
 archives:
   - replacements:
@@ -22,7 +22,7 @@ archives:
       windows: Windows
       386: i386
       amd64: x86_64
-    name_template: "tanzu-ns-ctl_{{ .Env.TAG_VERSION }}_{{ .Os }}_{{ .Arch }}"
+    name_template: "tanzu-ns-ctl_v{{ .Version }}_{{ .Os }}_{{ .Arch }}"
     format_overrides:
       - goos: windows
         format: zip
@@ -32,7 +32,7 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Env.TAG_VERSION }}-snapshot-{{ .ShortCommit }}"
+  name_template: "{{ .Version }}-snapshot-{{ .ShortCommit }}"
 changelog:
   sort: asc
   use: github
@@ -45,7 +45,7 @@ changelog:
       - '^build(\(.*\))?:'
 dockers:
   - image_templates:
-      - 'ghcr.io/vmware-tanzu-labs/namespace-operator:{{ .Env.TAG_VERSION }}'
+      - 'ghcr.io/vmware-tanzu-labs/namespace-operator:v{{ .Version }}'
       - 'ghcr.io/vmware-tanzu-labs/namespace-operator:latest'
     dockerfile: Dockerfile
     use_buildx: true
@@ -53,10 +53,10 @@ dockers:
       - "--label=org.opencontainers.image.created={{ .Date }}"
       - "--label=org.opencontainers.image.name={{ .ProjectName }}"
       - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
-      - "--label=org.opencontainers.image.version={{ .Env.TAG_VERSION }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
       - "--label=org.opencontainers.image.source={{ .GitURL }}"
       - "--label=org.opencontainers.image.licenses=MIT"
-      - "--label=VERSION={{ .Env.TAG_VERSION }}"
+      - "--label=VERSION={{ .Version }}"
       - "--platform=linux/amd64"
 brews:
   - name: tanzu-ns-ctl
