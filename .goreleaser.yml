@@ -22,7 +22,7 @@ archives:
       windows: Windows
       386: i386
       amd64: x86_64
-    name_template: "tanzu-ns-ctl_v{{ .Env.TAG_VERSION }}_{{ .Os }}_{{ .Arch }}"
+    name_template: "tanzu-ns-ctl_{{ .Env.TAG_VERSION }}_{{ .Os }}_{{ .Arch }}"
     format_overrides:
       - goos: windows
         format: zip
@@ -45,7 +45,7 @@ changelog:
       - '^build(\(.*\))?:'
 dockers:
   - image_templates:
-      - 'ghcr.io/vmware-tanzu-labs/namespace-operator:v{{ .Env.TAG_VERSION }}'
+      - 'ghcr.io/vmware-tanzu-labs/namespace-operator:{{ .Env.TAG_VERSION }}'
       - 'ghcr.io/vmware-tanzu-labs/namespace-operator:latest'
     dockerfile: Dockerfile
     use_buildx: true
