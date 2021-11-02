@@ -13,7 +13,7 @@ builds:
     main: ./cmd/tanzu-ns-ctl
     binary: tanzu-ns-ctl
     ldflags:
-      - -s -w -X github.com/vmware-tanzu-labs/namespace-operator/cmd/tanzu-ns-ctl -extldflags '-static'
+      - -s -w -X github.com/vmware-tanzu-labs/namespace-operator/cmd/tanzu-ns-ctl/commands.version={{ .Env.TAG_VERSION }} -extldflags '-static'
 
 archives:
   - replacements:
