@@ -1,0 +1,17 @@
+# NOTE: code markers were added before functionality for complex data types existed.  these are not functional
+#       or even syntactically correct but for documentation/visualization purposes only.
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: "tanzu-network-policy"
+  namespace: "tanzu-namespace" #+operator-builder:field:name=namespace,type=string
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  egress:
+    - ports:
+        - protocol: UDP
+          port: 53

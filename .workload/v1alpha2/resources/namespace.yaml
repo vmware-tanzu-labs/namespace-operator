@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  #+operator-builder:field:name=namespace,type=string,description=`
+  #Namespace name which is created and then enforced by related policy objects
+  #such as LimitRange, ResourceQuota, and NetworkPolicy.`
+  name: "tanzu-namespace"

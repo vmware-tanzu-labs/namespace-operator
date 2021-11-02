@@ -1,7 +1,21 @@
 domain: platform.cnr.vmware.com
+layout:
+- go.kubebuilder.io/v3
+multigroup: true
+plugins:
+  operatorBuilder:
+    cliRootCommandName: tanzu-ns-ctl
+    workloadConfigPath: .workload/v1alpha2/workload.yaml
+projectName: tenancy
 repo: github.com/vmware-tanzu-labs/namespace-operator
 resources:
-- group: tenancy
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: platform.cnr.vmware.com
+  group: tenancy
   kind: TanzuNamespace
-  version: v1alpha1
-version: "2"
+  path: github.com/vmware-tanzu-labs/namespace-operator/apis/tenancy/v1alpha2
+  version: v1alpha2
+version: "3"

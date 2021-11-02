@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: "tanzu-resource-quota"
+  namespace: "tanzu-namespace" #+operator-builder:field:name=namespace,type=string
+spec:
+  hard:
+    #+operator-builder:field:name=resources.quota.requests.cpu,default="2000m",type=string,description=`
+    #Default CPU requests quota to be enforced on the sum of all applications which get deployed into this namespace.`
+    requests.cpu: "2"
+    #+operator-builder:field:name=resources.quota.requests.memory,default="4Gi",type=string,description=`
+    #Default Memory requests quota to be enforced on the sum of all applications which get deployed into this namespace.`
+    requests.memory: "4Gi"
+    #+operator-builder:field:name=resources.quota.limits.cpu,default="2000m",type=string,description=`
+    #Default CPU limits quota to be enforced on the sum of all applications which get deployed into this namespace.`
+    limits.cpu: "2"
+    #+operator-builder:field:name=resources.quota.limits.memory,default="4Gi",type=string,description=`
+    #Default Memory limits quota to be enforced on the sum of all applications which get deployed into this namespace.`
+    limits.memory: "4Gi"

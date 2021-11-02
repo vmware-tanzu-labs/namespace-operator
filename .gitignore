@@ -23,5 +23,3 @@ bin
 *.swo
 *~
 
-# kubernetes compiled controllers
-manager
