@@ -23,7 +23,8 @@ builds:
     binary: manager
 
 archives:
-  - id: tanzu-ns-ctl
+  - builds:
+      - tanzu-ns-ctl
     replacements:
       darwin: Darwin
       linux: Linux
