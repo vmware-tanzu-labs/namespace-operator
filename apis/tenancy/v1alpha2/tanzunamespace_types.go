@@ -38,7 +38,7 @@ type TanzuNamespaceSpecResources struct {
 }
 
 type TanzuNamespaceSpecResourcesLimits struct {
-	// +kubebuilder:default="250m"
+	// +kubebuilder:default="100m"
 	// +kubebuilder:validation:Optional
 	// Default CPU limits to be applied to applications which get deployed into this namespace,
 	// but are missing a resources declaration.
@@ -52,7 +52,7 @@ type TanzuNamespaceSpecResourcesLimits struct {
 }
 
 type TanzuNamespaceSpecResourcesRequests struct {
-	// +kubebuilder:default="250m"
+	// +kubebuilder:default="100m"
 	// +kubebuilder:validation:Optional
 	// Default CPU requests to be applied to applications which get deployed into this namespace,
 	// but are missing a resources declaration.

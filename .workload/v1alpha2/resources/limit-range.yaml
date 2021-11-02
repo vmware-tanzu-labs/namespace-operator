@@ -7,19 +7,19 @@ metadata:
 spec:
   limits:
     - default:
-        #+operator-builder:field:name=resources.limits.cpu,default="250m",type=string,description=`
+        #+operator-builder:field:name=resources.limits.cpu,default="100m",type=string,description=`
         #Default CPU limits to be applied to applications which get deployed into this namespace,
         #but are missing a resources declaration.`
-        cpu: "125m"
+        cpu: "100m"
         #+operator-builder:field:name=resources.limits.memory,default="64Mi",type=string,description=`
         #Default Memory limits to be applied to applications which get deployed into this namespace,
         #but are missing a resources declaration.`
         memory: "64Mi"
       defaultRequest:
-        #+operator-builder:field:name=resources.requests.cpu,default="250m",type=string,description=`
+        #+operator-builder:field:name=resources.requests.cpu,default="100m",type=string,description=`
         #Default CPU requests to be applied to applications which get deployed into this namespace,
         #but are missing a resources declaration.`
-        cpu: "250m"
+        cpu: "100m"
         #+operator-builder:field:name=resources.requests.memory,default="64Mi",type=string,description=`
         #Default Memory requests to be applied to applications which get deployed into this namespace,
         #but are missing a resources declaration.`

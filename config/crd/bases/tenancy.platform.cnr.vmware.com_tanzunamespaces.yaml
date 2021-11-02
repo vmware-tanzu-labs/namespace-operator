@@ -257,7 +257,7 @@ spec:
                   limits:
                     properties:
                       cpu:
-                        default: 250m
+                        default: 100m
                         description: Default CPU limits to be applied to applications
                           which get deployed into this namespace, but are missing
                           a resources declaration.
@@ -321,7 +321,7 @@ spec:
                   requests:
                     properties:
                       cpu:
-                        default: 250m
+                        default: 100m
                         description: Default CPU requests to be applied to applications
                           which get deployed into this namespace, but are missing
                           a resources declaration.
